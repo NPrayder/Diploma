@@ -1,0 +1,51 @@
+<div class="container">
+  <h1 class="title">Sign up</h1>
+
+  <form class="form-wrapper" [formGroup]="signUpFormGroup" (ngSubmit)="signUp()">
+    <mat-form-field appearance="outline">
+      <mat-label>Your name</mat-label>
+      <input
+        matInput
+        placeholder="Your name"
+        type="text"
+        formControlName="name"
+      >
+      <mat-error *ngIf="!name.valid && name.hasError('required')">This field is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="Email"
+        type="email"
+        formControlName="email"
+      >
+      <mat-error *ngIf="!email.valid && email.hasError('email')">Bad email address</mat-error>
+      <mat-error *ngIf="!email.valid && email.hasError('required')">This field is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        placeholder="Password"
+        type="password"
+        formControlName="password"
+      >
+      <mat-error *ngIf="!password.valid && password.hasError('minlength')">Password must contain at least 6 characters</mat-error>
+      <mat-error *ngIf="!password.valid && password.hasError('required')">This field is required</mat-error>
+    </mat-form-field>
+
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="!signUpFormGroup.valid"
+    >
+      Sign up
+    </button>
+  </form>
+
+  <a routerLink="login" class="change-page">Already have an account?</a>
+</div>

@@ -1,0 +1,42 @@
+.container {
+  height: 60px;
+  padding: 0 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  .logo-container {
+    position: relative;
+    height: 50px;
+    width: 100px;
+    padding: 0 12px;
+
+    border-radius: 5px;
+
+    &:hover {
+      background: rgba(0, 0, 0, .1);
+
+      img {
+        position: absolute;
+        z-index: 1;
+      }
+    }
+  }
+
+  .user-preview {
+    border-radius: 5px;
+    padding: 6px 12px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+
+    .profile-picture {
+      border-radius: 50%;
+      margin-right: 12px;
+    }
+  }
+}

@@ -1,0 +1,15 @@
+<div class="container mat-elevation-z5">
+  <a class="logo-container" routerLink="/" matRipple>
+    <img src="/assets/logo.png" alt="logo">
+  </a>
+
+  <div class="user-preview" matRipple *ngIf="user">
+    <img
+      class="profile-picture"
+      src="https://placehold.it/40x40"
+      alt="user profile picture"
+    >
+
+    <span class="username">{{user.name}}</span>
+  </div>
+</div>

@@ -1,0 +1,33 @@
+.container {
+  max-width: 400px;
+  margin: 0 16px;
+
+  .title {
+    text-align: center;
+  }
+
+  mat-form-field {
+    width: 100%;
+  }
+
+  button {
+    width: 100%;
+    padding: 8px 0;
+  }
+
+  .change-page {
+    margin-top: 12px;
+
+    display: block;
+
+    color: #5a5a5a;
+    text-align: center;
+    text-decoration: none;
+
+    transition: all .1s linear;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}

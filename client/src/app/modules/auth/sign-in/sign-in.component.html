@@ -1,0 +1,40 @@
+<div class="container">
+  <h1 class="title">Sign in</h1>
+
+  <form class="form-wrapper" [formGroup]="signInFormGroup" (ngSubmit)="signIn()">
+    <mat-form-field appearance="outline">
+      <mat-label>Email</mat-label>
+      <input
+        matInput
+        placeholder="Email"
+        type="email"
+        formControlName="email"
+      >
+      <mat-error *ngIf="!email.valid && email.hasError('email')">Bad email address</mat-error>
+      <mat-error *ngIf="!email.valid && email.hasError('required')">This field is required</mat-error>
+    </mat-form-field>
+
+    <mat-form-field appearance="outline">
+      <mat-label>Password</mat-label>
+      <input
+        matInput
+        placeholder="Password"
+        type="password"
+        formControlName="password"
+      >
+      <mat-error *ngIf="!password.valid && password.hasError('minlength')">Password must contain at least 6 characters</mat-error>
+      <mat-error *ngIf="!password.valid && password.hasError('required')">This field is required</mat-error>
+    </mat-form-field>
+
+    <button
+      mat-flat-button
+      color="primary"
+      type="submit"
+      [disabled]="!signInFormGroup.valid"
+    >
+      Sign in
+    </button>
+  </form>
+
+  <a routerLink="sign-up" class="change-page">Don't have account yet?</a>
+</div>

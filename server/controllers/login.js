@@ -79,7 +79,8 @@ loginRouter.post('/sign-up', async (request, response) => {
 
         response.status(201).json({
             msg: 'User succesfully created',
-            token
+            token,
+            ...userForToken
         });
     } catch (e) {
         response.status(400).json({

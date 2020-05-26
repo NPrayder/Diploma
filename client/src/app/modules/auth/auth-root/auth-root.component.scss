@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex: 1 1 0;
+
+  .left-side {
+    background-color: #5a5a5a;
+    width: 50%;
+    height: 100vh;
+
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 100%;
+    }
+
+    @media (max-width: 768px) {
+      display: none;
+    }
+  }
+
+  .right-side {
+    width: 50%;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media (max-width: 768px) {
+      width: 100%;
+    }
+  }
+}

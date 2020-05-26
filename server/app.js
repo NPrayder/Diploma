@@ -10,6 +10,7 @@ const loginRouter = require('./controllers/login');
 const wizardRouter = require('./controllers/wizard');
 const transactionsRouter = require('./controllers/transactions');
 const currencyRateRouter = require('./controllers/currency-rate');
+const userRouter = require('./controllers/user');
 
 const app = express();
 
@@ -34,6 +35,7 @@ app.use(middleware.tokenVerifier);
 app.use('/api/wizard', wizardRouter);
 app.use('/api/mono', transactionsRouter);
 app.use('/api/rate', currencyRateRouter);
+app.use('/api/user', userRouter);
 
 
 app.use(middleware.unknownEndpoint);
