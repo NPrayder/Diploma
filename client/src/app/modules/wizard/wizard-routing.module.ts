@@ -1,9 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { WizardRootComponent } from './wizard-root/wizard-root.component';
-import { UserResolver } from './core/services/user.resolver';
+import { UserResolver } from '../../shared/core/services/user.resolver';
 import { ChooseBankStepComponent } from './choose-bank-step/choose-bank-step.component';
 import { MonoStepComponent } from './mono-step/mono-step.component';
+import { SuccessfulAddingComponent } from './successful-adding/successful-adding.component';
 
 
 const routes: Routes = [
@@ -13,13 +14,17 @@ const routes: Routes = [
     component: WizardRootComponent,
     children: [
       {
+        path: 'mono',
+        component: MonoStepComponent
+      },
+      {
+        path: 'successful-adding',
+        component: SuccessfulAddingComponent,
+      },
+      {
         path: '',
         component: ChooseBankStepComponent
       },
-      {
-        path: 'mono',
-        component: MonoStepComponent
-      }
     ]
   }
 ];

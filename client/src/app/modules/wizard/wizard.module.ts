@@ -4,26 +4,32 @@ import { CommonModule } from '@angular/common';
 import { WizardRoutingModule } from './wizard-routing.module';
 import { WizardRootComponent } from './wizard-root/wizard-root.component';
 import { SharedModule } from '../../shared/shared.module';
-import { UserResolver } from './core/services/user.resolver';
+import { UserResolver } from '../../shared/core/services/user.resolver';
 import { ChooseBankStepComponent } from './choose-bank-step/choose-bank-step.component';
 import { MaterialModule } from '../../shared/modules/material.module';
 import { MonoStepComponent } from './mono-step/mono-step.component';
+import { FormsModule } from '@angular/forms';
+import { SuccessfulAddingComponent } from './successful-adding/successful-adding.component';
+import { WizardService } from './core/services/wizard.service';
 
 
 @NgModule({
   declarations: [
     WizardRootComponent,
     ChooseBankStepComponent,
-    MonoStepComponent
+    MonoStepComponent,
+    SuccessfulAddingComponent
   ],
   imports: [
     CommonModule,
     WizardRoutingModule,
     SharedModule,
-    MaterialModule
+    MaterialModule,
+    FormsModule
   ],
   providers: [
-    UserResolver
+    WizardService,
+    UserResolver,
   ]
 })
 export class WizardModule {

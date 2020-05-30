@@ -9,6 +9,7 @@ import { ErrorHandlerInterceptor } from './shared/core/services/error-handler.in
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TokenInterceptor } from './shared/core/services/token.interceptor';
+import { UserResolver } from './shared/core/services/user.resolver';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { TokenInterceptor } from './shared/core/services/token.interceptor';
     MatProgressSpinnerModule,
   ],
   providers: [
+    UserResolver,
     { provide: HTTP_INTERCEPTORS, useClass: ErrorHandlerInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
   ],

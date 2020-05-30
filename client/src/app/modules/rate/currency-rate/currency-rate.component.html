@@ -1,0 +1,17 @@
+<div class="container">
+  <div class="wrapper">
+    <div class="header">
+      <div class="header-item">Назва валюти</div>
+      <div class="header-item">Символ валюти</div>
+      <div class="header-item">Ціни покупки</div>
+      <div class="header-item">Ціни продажу</div>
+    </div>
+
+    <div class="rate-item" *ngFor="let rate of rates">
+      <div class="item">{{getCurrencyName(rate.currencyCodeA)}}</div>
+      <div class="item">{{getCurrencySymbol(rate.currencyCodeA)}}</div>
+      <div class="item">{{rate.rateBuy}}</div>
+      <div class="item">{{rate.rateSell}}</div>
+    </div>
+  </div>
+</div>

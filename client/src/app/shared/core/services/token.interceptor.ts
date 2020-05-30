@@ -18,8 +18,6 @@ export class TokenInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    this.spinnerService.showSpinner();
-
     if (request.headers && request.headers.has(SKIP_TOKEN_INTERCEPTOR)) {
       const headers = request.headers.delete(SKIP_TOKEN_INTERCEPTOR);
       return next.handle(request.clone({headers}));

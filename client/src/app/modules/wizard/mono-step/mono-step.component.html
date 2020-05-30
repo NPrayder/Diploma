@@ -1,1 +1,24 @@
-<p>mono-step works!</p>
+<div class="container">
+  <h1 class="title">Додайте свою карту MonoBank</h1>
+  <p class="description">Тут буде текст про те як додати карту <a href="https://api.monobank.ua" target="_blank">тут</a></p>
+  <mat-form-field appearance="outline">
+    <mat-label>Токен</mat-label>
+    <input
+      matInput
+      placeholder="Токен"
+      type="text"
+      [(ngModel)]="monoToken"
+    >
+<!--    <mat-error *ngIf="!email.valid && email.hasError('email')">Bad email address</mat-error>-->
+<!--    <mat-error *ngIf="!email.valid && email.hasError('required')">This field is required</mat-error>-->
+  </mat-form-field>
+
+  <button
+    mat-flat-button
+    [disabled]="disableButton"
+    color="primary"
+    (click)="addToken()"
+  >
+    Зберегти токен
+  </button>
+</div>

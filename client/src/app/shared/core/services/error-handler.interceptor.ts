@@ -19,14 +19,9 @@ export class ErrorHandlerInterceptor implements HttpInterceptor {
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request)
       .pipe(tap(
-        (event) => {
-          if (event instanceof HttpResponse) {
-            this.spinnerService.hideSpinner();
-          }
-        },
+        () => { },
         (error: HttpErrorResponse) => {
           this.snackbarService.showSnackbar(error.error.error);
-          this.spinnerService.hideSpinner();
         }
       ));
   }

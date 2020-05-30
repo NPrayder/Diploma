@@ -1,0 +1,6 @@
+<ng-container *ngIf="userService.getUser() | async">
+  <app-header></app-header>
+  <div class="container">
+    <router-outlet></router-outlet>
+  </div>
+</ng-container>

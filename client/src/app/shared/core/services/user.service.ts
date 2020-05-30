@@ -7,6 +7,7 @@ import { User } from '../../models/user-interface';
 })
 export class UserService {
   private token: string;
+  user: User;
   private user$: ReplaySubject<User>;
 
   constructor() {
@@ -35,6 +36,7 @@ export class UserService {
 
   setUser(user: User): void {
     this.user$.next(user);
+    this.user = user;
     localStorage.setItem('userId', user.id);
   }
 

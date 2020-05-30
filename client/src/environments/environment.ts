@@ -5,6 +5,8 @@
 export const environment = {
   production: false,
   signInUrl: '/api/login',
+  addMonoTokenUrl: '/api/wizard/monobank/add-token',
+  rate: '/api/rate',
 };
 
 /*

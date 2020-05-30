@@ -3,7 +3,7 @@
     <img src="/assets/logo.png" alt="logo">
   </a>
 
-  <div class="user-preview" matRipple *ngIf="user">
+  <a class="user-preview" matRipple *ngIf="user" routerLink="/account">
     <img
       class="profile-picture"
       src="https://placehold.it/40x40"
@@ -11,5 +11,5 @@
     >
 
     <span class="username">{{user.name}}</span>
-  </div>
+  </a>
 </div>
