@@ -1,9 +1,9 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { RateService } from '../../../shared/core/services/rate.service';
 import { Rate } from '../../../shared/models/rate.interface';
-import { of, Subscription } from 'rxjs';
+import { Subscription } from 'rxjs';
 import * as currencyCodes from 'currency-codes';
-import { concatMap, distinct, toArray } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-currency-rate',
@@ -14,7 +14,8 @@ export class CurrencyRateComponent implements OnInit, OnDestroy {
   rates: Rate[] = [];
   subscription: Subscription;
 
-  constructor(private rateService: RateService) {
+  constructor(private rateService: RateService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
@@ -34,6 +35,11 @@ export class CurrencyRateComponent implements OnInit, OnDestroy {
     const id = currencyCodes.number(`${code}`).code;
     const intl = new Intl.NumberFormat('ru-RU', {style: 'currency', currency: id});
     return intl.format(0).replace(/\d+|\.|,/g, '');
+  }
+
+  async navigateToDetails(rate: Rate): Promise<void> {
+    const code = currencyCodes.number(rate.currencyCodeA.toString()).code;
+    await this.router.navigate(['.', 'rate', code.toLowerCase()]);
   }
 
   ngOnDestroy() {

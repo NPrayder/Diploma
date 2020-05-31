@@ -1,0 +1,45 @@
+.convertor {
+  max-width: 1000px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 40px 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  mat-form-field {
+    max-width: 400px;
+    width: 100%;
+
+    @media (max-width: 576px) {
+      max-width: 150px;
+    }
+
+    ::ng-deep {
+      .mat-form-field-wrapper {
+        padding-bottom: 0;
+      }
+    }
+  }
+
+  mat-icon {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+  }
+}
+
+.pickers {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.flex {
+  position: relative;
+  max-width: 1200px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 12px;
+}

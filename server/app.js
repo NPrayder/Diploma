@@ -28,13 +28,12 @@ app.use(morgan('tiny'));
 
 // unguarder routes
 app.use('/api/login', loginRouter);
+app.use('/api/rate', currencyRateRouter);
 
 // guarded routes
 app.use(middleware.tokenVerifier);
-
 app.use('/api/wizard', wizardRouter);
 app.use('/api/mono', transactionsRouter);
-app.use('/api/rate', currencyRateRouter);
 app.use('/api/user', userRouter);
 
 

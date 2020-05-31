@@ -18,8 +18,8 @@ export class RateService {
       .get<Rate[]>(environment.rate);
   }
 
-  getRateByCurrency(currency: string): Observable<RateForChart> {
+  getRateByCurrency(currency: string): Observable<RateForChart[]> {
     return this.httpClient
-      .get<RateForChart>(`${environment.rate}/${currency}`);
+      .get<RateForChart[]>(`${environment.rate}/${currency}`);
   }
 }

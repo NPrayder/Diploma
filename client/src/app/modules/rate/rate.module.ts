@@ -6,6 +6,10 @@ import { CurrencyRateComponent } from './currency-rate/currency-rate.component';
 import { CurrencyDetailedViewComponent } from './currency-detailed-view/currency-detailed-view.component';
 import { RateRootComponent } from './rate-root/rate-root.component';
 import { SharedModule } from '../../shared/shared.module';
+import { ChartsModule } from 'ng2-charts';
+import { MaterialModule } from '../../shared/modules/material.module';
+import { DateAdapter } from '@angular/material/core';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -17,7 +21,12 @@ import { SharedModule } from '../../shared/shared.module';
   imports: [
     CommonModule,
     RateRoutingModule,
-    SharedModule
+    SharedModule,
+    ChartsModule,
+    MaterialModule,
+    FormsModule,
   ],
+  providers: [
+  ]
 })
 export class RateModule { }
