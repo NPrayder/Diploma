@@ -8,6 +8,9 @@ import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatDatepickerModule } from '@angular/material/datepicker';
+import { MatTableModule } from '@angular/material/table';
+import { MatSortModule } from '@angular/material/sort';
+import { CdkTableModule } from '@angular/cdk/table';
 
 const modules = [
   MatInputModule,
@@ -19,6 +22,9 @@ const modules = [
   MatFormFieldModule,
   MatDatepickerModule,
   MatNativeDateModule,
+  MatTableModule,
+  MatSortModule,
+  CdkTableModule
 ];
 
 @NgModule({

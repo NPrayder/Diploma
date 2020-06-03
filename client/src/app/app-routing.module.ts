@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './shared/core/services/auth.guard';
-import { UserResolver } from './shared/core/services/user.resolver';
 
 
 const routes: Routes = [
@@ -14,10 +13,6 @@ const routes: Routes = [
     path: 'wizard',
     canActivate: [AuthGuard],
     loadChildren: () => import('./modules/wizard/wizard.module').then(module => module.WizardModule)
-  },
-  {
-    path: 'rate',
-    loadChildren: () => import('./modules/rate/rate.module').then(module => module.RateModule)
   },
   {
     path: '',

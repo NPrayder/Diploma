@@ -1,6 +1,6 @@
 <div class="container">
   <div class="wrapper">
-    <div class="header">
+    <div class="header" *ngIf="!hideHeader">
       <div class="header-item">Currency name</div>
       <div class="header-item">Currency symbol</div>
       <div class="header-item">Buy price</div>
@@ -8,7 +8,7 @@
     </div>
 
     <div class="rate-item" *ngFor="let rate of rates" (click)="navigateToDetails(rate)">
-      <div class="item">{{getCurrencyName(rate.currencyCodeA)}}</div>
+      <div class="item" *ngIf="!hideHeader">{{getCurrencyName(rate.currencyCodeA)}}</div>
       <div class="item">{{getCurrencySymbol(rate.currencyCodeA)}}</div>
       <div class="item">{{rate.rateBuy}}</div>
       <div class="item">{{rate.rateSell}}</div>

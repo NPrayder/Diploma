@@ -11,7 +11,7 @@ wizardRouter.post('/monobank/add-token', async (request, response) => {
 
         if (monoResponse.errorDescription) {
             return response.status(400).json({
-                error: 'Невалідний токен'
+                error: 'Invalid token'
             });
         }
 
@@ -19,7 +19,7 @@ wizardRouter.post('/monobank/add-token', async (request, response) => {
         await User.findByIdAndUpdate(userId, { monoToken: body.token }, { upsert: true })
 
         response.json({
-            mgs: 'Токен успішно додано'
+            mgs: 'Token successfully added'
         });
     } catch (e) {
         response.status(400).json({

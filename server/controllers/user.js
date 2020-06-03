@@ -1,6 +1,24 @@
 const userRouter = require('express').Router();
 const User = require('../models/user');
 
+userRouter.get('/user-info', async (request, response) => {
+    const { body } = request;
+
+    try {
+        const user = await User.findOne({ _id: body.user.id });
+        const { monoToken } = user;
+
+        const monobankApi = new Mobobank(monoToken);
+        const info = await monobankApi.getPersonalInfo();
+
+        response.json(info);
+    } catch (e) {
+        response.status(400).json({
+            error: e.message
+        });
+    }
+});
+
 userRouter.get('/get-user/:id', async (request, response) => {
     const {id} = request.params;
 

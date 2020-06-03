@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, Input, OnDestroy, OnInit } from '@angular/core';
 import { RateService } from '../../../shared/core/services/rate.service';
 import { Rate } from '../../../shared/models/rate.interface';
 import { Subscription } from 'rxjs';
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./currency-rate.component.scss']
 })
 export class CurrencyRateComponent implements OnInit, OnDestroy {
+  @Input() hideHeader: boolean;
   rates: Rate[] = [];
   subscription: Subscription;
 
@@ -39,7 +40,7 @@ export class CurrencyRateComponent implements OnInit, OnDestroy {
 
   async navigateToDetails(rate: Rate): Promise<void> {
     const code = currencyCodes.number(rate.currencyCodeA.toString()).code;
-    await this.router.navigate(['.', 'rate', code.toLowerCase()]);
+    await this.router.navigate(['/', 'rate', code.toLowerCase()]);
   }
 
   ngOnDestroy() {

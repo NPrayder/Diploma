@@ -26,7 +26,9 @@ import { FormsModule } from '@angular/forms';
     MaterialModule,
     FormsModule,
   ],
-  providers: [
-  ]
+  exports: [
+    CurrencyRateComponent
+  ],
+  providers: []
 })
 export class RateModule { }

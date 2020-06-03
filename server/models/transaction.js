@@ -7,6 +7,7 @@ const transactionSchema = mongoose.Schema({
     mcc: Number,
     balance: Number,
     amount: Number,
+    type: Number,
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

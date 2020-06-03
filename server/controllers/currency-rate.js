@@ -1,9 +1,9 @@
 const currencyRateRouter = require('express').Router();
 const Monobank = require('monobank-node');
-const USD = require('../rates/usd.json')
-const EUR = require('../rates/eur.json')
-const RUB = require('../rates/rub.json')
-const PLN = require('../rates/pln.json')
+const USD = require('../constants/usd.json')
+const EUR = require('../constants/eur.json')
+const RUB = require('../constants/rub.json')
+const PLN = require('../constants/pln.json')
 
 currencyRateRouter.get('/', async (request, response) => {
     try {

@@ -1,40 +1,38 @@
-const monoRuter = require('express').Router();
+const transactionsRouter = require('express').Router();
 const Mobobank = require('monobank-node');
 const User = require('../models/user');
 const Transaction = require('../models/transaction');
+const CATEGORIES = require('../constants/categories.json');
+const mcc = require('mcc');
 
-monoRuter.get('/user-info', async (request, response) => {
+const MONOBANK = 0;
+const PRIVATBANK = 1;
+
+transactionsRouter.get('/', async (request, response) => {
     const { body } = request;
 
-    try {
-        const user = await User.findOne({ _id: body.user.id });
-        const { monoToken } = user;
-
-        const monobankApi = new Mobobank(monoToken);
-        const info = await monobankApi.getPersonalInfo();
-
-        response.json(info);
-    } catch (e) {
-        response.status(400).json({
-            error: e.message
-        });
-    }
-});
-
-monoRuter.get('/transactions', async (request, response) => {
-    const { body } = request;
+    const selectConfig = buildSelectConfig(request);
 
     try {
         const user = await User.findOne({ _id: body.user.id });
 
-        await retrieveTransactions(user);
+        await retrieveMonoTransactions(user);
         await User.updateOne({_id: user.id}, {lastMonoLoad: getNow()});
 
         // await Transaction.deleteMany({});
-        
-        const transactions = await Transaction.find({user: user.id}).sort('-time');
 
-        response.json(transactions.map(t => t.toJSON()));
+        console.log(selectConfig);
+
+        const transactions = await Transaction.find({user: user.id, ...selectConfig}).sort('-time');
+
+        const mappedData = transactions.map(t => {
+            return {
+                ...t.toJSON(),
+                mcc: mcc.get(t.mcc).irs_description
+            };
+        })
+
+        response.json(mappedData);
     } catch (e) {
         response.status(400).json({
             error: e.message
@@ -42,11 +40,15 @@ monoRuter.get('/transactions', async (request, response) => {
     }
 });
 
-async function retrieveTransactions(user) {
+transactionsRouter.get('/categories', (request, response) => {
+    response.json(Object.keys(CATEGORIES));
+});
+
+async function retrieveMonoTransactions(user) {
     const { monoToken, lastMonoLoad } = user;
 
     if (getNow() - lastMonoLoad < 60) {
-        return;
+        return false;
     }
 
     const monobankApi = new Mobobank(monoToken);
@@ -57,18 +59,33 @@ async function retrieveTransactions(user) {
         throw new Error(transactions.error);
     }
 
-    await saveTransactions(transactions, user.id);
+    await saveMonoTransactions(transactions, user.id);
+    return true;
 }
 
-async function saveTransactions(transactions, user) {
+async function saveMonoTransactions(transactions, user) {
     if (!transactions.length) {
         return;
     }
 
     await transactions.forEach(async t => {
-        const transaction = new Transaction({ ...t, user });
+        const transaction = new Transaction({ ...t, user, bankType: MONOBANK });
         await transaction.save();
     });
+}
+
+function buildSelectConfig(request) {
+    const config = {};
+
+    if (request.query.bankName) {
+        config.type = +!(request.query.bankName === 'mono')
+    }
+
+    if (request.query.category) {
+        config.mcc = { "$in" : CATEGORIES[request.query.category]}
+    }
+
+    return config;
 }
 
 function getTime(time) {
@@ -92,4 +109,4 @@ function getNow() {
     return Math.floor(Date.now() / 1000);
 }
 
-module.exports = monoRuter;
+module.exports = transactionsRouter;

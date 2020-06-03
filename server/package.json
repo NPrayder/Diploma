@@ -32,6 +32,7 @@
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "mcc": "^2.2.0",
     "mongoose": "^5.9.13",
     "monobank-node": "0.0.2",
     "morgan": "^1.10.0"

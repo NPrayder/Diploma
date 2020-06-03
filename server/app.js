@@ -26,14 +26,14 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan('tiny'));
 
-// unguarder routes
+// unguarded routes
 app.use('/api/login', loginRouter);
 app.use('/api/rate', currencyRateRouter);
 
 // guarded routes
 app.use(middleware.tokenVerifier);
 app.use('/api/wizard', wizardRouter);
-app.use('/api/mono', transactionsRouter);
+app.use('/api/transactions', transactionsRouter);
 app.use('/api/user', userRouter);
 
 

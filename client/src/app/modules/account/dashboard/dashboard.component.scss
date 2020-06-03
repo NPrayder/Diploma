@@ -1,0 +1,27 @@
+.container {
+  display: grid;
+
+  grid-template: "chart rate"
+                  "chart1 chart1";
+  grid-gap: 40px 16px;
+
+  app-currency-rate {
+    grid-area: rate;
+    width: 320px;
+  }
+
+  .c1 {
+    width: 100%;
+    grid-area: chart;
+  }
+
+  .wrapper {
+    padding: 12px 0;
+    display: flex;
+    grid-area: chart1;
+  }
+
+  .c2, .c3 {
+    width: 50%;
+  }
+}
