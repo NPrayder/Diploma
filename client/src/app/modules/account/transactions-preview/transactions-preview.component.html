@@ -1,4 +1,4 @@
-<ng-container *ngIf="transactions?.length && !shortVersion">
+<ng-container *ngIf="transactions?.length && !liteVersion">
   <table mat-table [dataSource]="transactions" matSort class="mat-elevation-z8">
 
     <!-- Position Column -->
@@ -42,10 +42,13 @@
   </table>
 </ng-container>
 
-<ng-container *ngIf="transactions?.length && shortVersion">
-  <div class="container">
-    <div class="item">
-
+<ng-container *ngIf="transactions?.length && liteVersion">
+  <div class="lite-container">
+    <div class="item" *ngFor="let op of transactions | slice:0:5">
+      <img src="assets/{{isMono(op.type) ? 'favicon-mono.ico' : 'favicon-pb.png'}}" alt="bank icon">
+      <span class="operation name" [matTooltip]="op.description">{{op.description}}</span>
+      <span class="operation sum">{{op.amount}}</span>
     </div>
+    <div class="item show-more" routerLink="/transactions">Show more</div>
   </div>
 </ng-container>

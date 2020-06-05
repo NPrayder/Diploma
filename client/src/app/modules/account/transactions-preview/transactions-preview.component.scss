@@ -2,3 +2,47 @@ table {
   width: 98%;
   margin: 24px 12px 0;
 }
+
+.lite-container {
+  width: 100%;
+  max-width: 320px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .item {
+    width: 100%;
+    display: flex;
+    margin: 8px;
+    align-items: center;
+    justify-content: space-between;
+
+    border: 1px solid #5a5a5a;
+    border-radius: 15px;
+    padding: 8px 16px;
+
+    &.show-more {
+      justify-content: center;
+      cursor: pointer;
+
+      transition: all .1s linear;
+
+      &:hover {
+        background-color: #5a5a5a;
+        color: #ffffff;
+      }
+    }
+
+    img {
+      padding: 0 8px;
+    }
+
+    .operation {
+      padding: 0 8px;
+      max-width: 200px;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      overflow: hidden;
+    }
+  }
+}

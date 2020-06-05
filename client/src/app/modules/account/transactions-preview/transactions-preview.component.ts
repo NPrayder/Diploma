@@ -8,7 +8,7 @@ import { BankTypes } from '../core/models/bank-types.enum';
   styleUrls: ['./transactions-preview.component.scss']
 })
 export class TransactionsPreviewComponent implements OnInit {
-  @Input() shortVersion: boolean;
+  @Input() liteVersion: boolean;
   @Input() transactions: Transaction[];
 
   displayedColumns: string[] = ['bank', 'name', 'category', 'amount', 'balance', 'total'];

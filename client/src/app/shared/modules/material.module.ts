@@ -11,6 +11,7 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { CdkTableModule } from '@angular/cdk/table';
+import { MatTooltipModule } from '@angular/material/tooltip';
 
 const modules = [
   MatInputModule,
@@ -24,7 +25,8 @@ const modules = [
   MatNativeDateModule,
   MatTableModule,
   MatSortModule,
-  CdkTableModule
+  CdkTableModule,
+  MatTooltipModule,
 ];
 
 @NgModule({
