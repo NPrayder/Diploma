@@ -1,4 +1,4 @@
 export enum BankTypes {
-  MONOBANK,
-  PRIVATBANK,
+  PRIVATBANK = 1,
+  MONOBANK = 2,
 }

@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
+require('mongoose-long')(mongoose);
 
 const transactionSchema = mongoose.Schema({
     id: String,
-    time: Number,
+    time: mongoose.Schema.Types.Long,
     description: String,
     mcc: Number,
     balance: Number,

@@ -5,23 +5,21 @@ const Transaction = require('../models/transaction');
 const CATEGORIES = require('../constants/categories.json');
 const mcc = require('mcc');
 
-const MONOBANK = 0;
+const MONOBANK = 2;
 const PRIVATBANK = 1;
 
 transactionsRouter.get('/', async (request, response) => {
-    const { body } = request;
+    const {body} = request;
 
     const selectConfig = buildSelectConfig(request);
 
     try {
-        const user = await User.findOne({ _id: body.user.id });
+        const user = await User.findOne({_id: body.user.id});
 
-        await retrieveMonoTransactions(user);
-        await User.updateOne({_id: user.id}, {lastMonoLoad: getNow()});
+        const isUpdated = await retrieveMonoTransactions(user);
+        isUpdated && await User.updateOne({_id: user.id}, {lastMonoLoad: getNow(true)});
 
         // await Transaction.deleteMany({});
-
-        console.log(selectConfig);
 
         const transactions = await Transaction.find({user: user.id, ...selectConfig}).sort('-time');
 
@@ -40,19 +38,40 @@ transactionsRouter.get('/', async (request, response) => {
     }
 });
 
+transactionsRouter.get('/stats', async (request, response) => {
+    const {body} = request;
+
+    const selectConfig = buildSelectConfig(request);
+
+    try {
+        const user = await User.findOne({_id: body.user.id});
+
+        const isUpdated = await retrieveMonoTransactions(user);
+        isUpdated && await User.updateOne({_id: user.id}, {lastMonoLoad: getNow(true)});
+
+        const expenses = await aggregateData({amount: {$lte: 0}}, selectConfig);
+        const incomes = await aggregateData({amount: {$gte: 0}}, selectConfig);
+
+        response.json({expenses, incomes});
+    } catch (e) {
+        response.status(400).json({
+            error: e.message
+        });
+    }
+});
+
 transactionsRouter.get('/categories', (request, response) => {
     response.json(Object.keys(CATEGORIES));
 });
 
 async function retrieveMonoTransactions(user) {
-    const { monoToken, lastMonoLoad } = user;
+    const {monoToken, lastMonoLoad} = user;
 
-    if (getNow() - lastMonoLoad < 60) {
+    if (getNow(true) - lastMonoLoad < 60) {
         return false;
     }
 
     const monobankApi = new Mobobank(monoToken);
-    console.log(getTime(lastMonoLoad));
     const transactions = await monobankApi.getStatement(getTime(lastMonoLoad));
 
     if (transactions.error) {
@@ -69,7 +88,7 @@ async function saveMonoTransactions(transactions, user) {
     }
 
     await transactions.forEach(async t => {
-        const transaction = new Transaction({ ...t, user, bankType: MONOBANK });
+        const transaction = new Transaction({...t, time: t.time * 1000, user, type: MONOBANK});
         await transaction.save();
     });
 }
@@ -78,18 +97,24 @@ function buildSelectConfig(request) {
     const config = {};
 
     if (request.query.bankName) {
-        config.type = +!(request.query.bankName === 'mono')
+        config.type = (request.query.bankName === 'mono') + 1
     }
 
     if (request.query.category) {
-        config.mcc = { "$in" : CATEGORIES[request.query.category]}
+        config.mcc = {"$in": CATEGORIES[request.query.category]}
+    }
+
+    if (request.query.startDate || request.query.endDate) {
+        const startDate = (request.query.startDate && new Date(request.query.startDate)) || new Date('01/01/2019');
+        const endDate = (request.query.endDate && new Date(request.query.endDate)) || new Date();
+        config.time = {$gte: startDate.getTime(), $lt: endDate.getTime()}
     }
 
     return config;
 }
 
 function getTime(time) {
-    const now = getNow();
+    const now = getNow(true);
     const maxPeriod = 2678400;
 
     if (time) {
@@ -105,8 +130,27 @@ function getTime(time) {
     }
 }
 
-function getNow() {
-    return Math.floor(Date.now() / 1000);
+function getNow(isMono) {
+    return isMono ? Math.floor(Date.now() / 1000) : Date.now();
+}
+
+async function aggregateData(condition, config) {
+    const [data] = await Transaction.aggregate([
+        {
+            $match: {$and: [condition, config]},
+        },
+        {
+            $group: {
+                _id: null,
+                total: {$sum: '$amount'}
+            }
+        }]);
+
+    if (data && data.total) {
+        return data.total / 100;
+    } else {
+        return 0;
+    }
 }
 
 module.exports = transactionsRouter;

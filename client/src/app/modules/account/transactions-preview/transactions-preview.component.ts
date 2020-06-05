@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Transaction } from '../core/models/transaction.interface';
+import { BankTypes } from '../core/models/bank-types.enum';
 
 @Component({
   selector: 'app-transactions-preview',
@@ -10,11 +11,14 @@ export class TransactionsPreviewComponent implements OnInit {
   @Input() shortVersion: boolean;
   @Input() transactions: Transaction[];
 
-  displayedColumns: string[] = ['bank', 'npm1', 'category', 'amount', 'balance', 'total'];
+  displayedColumns: string[] = ['bank', 'name', 'category', 'amount', 'balance', 'total'];
 
   constructor() { }
 
   ngOnInit(): void {
   }
 
+  isMono(type: BankTypes): boolean {
+    return type === BankTypes.MONOBANK;
+  }
 }
