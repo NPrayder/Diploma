@@ -31,6 +31,10 @@
       cursor: pointer;
       transition: all .1s linear;
 
+      img {
+        width: 75%;
+      }
+
       &:hover {
         border-color: #5a5a5a;
       }

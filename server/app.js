@@ -7,9 +7,9 @@ const mongoose = require('mongoose');
 const morgan = require('morgan');
 
 const loginRouter = require('./controllers/login');
-const wizardRouter = require('./controllers/wizard');
-const transactionsRouter = require('./controllers/transactions');
-const currencyRateRouter = require('./controllers/currency-rate');
+const wizardRouter = require('./controllers/wizard.controller');
+const transactionsRouter = require('./controllers/transactions.controller');
+const currencyRateRouter = require('./controllers/currency-rate.controller');
 const userRouter = require('./controllers/user');
 
 const app = express();
@@ -35,6 +35,7 @@ app.use(middleware.tokenVerifier);
 app.use('/api/wizard', wizardRouter);
 app.use('/api/transactions', transactionsRouter);
 app.use('/api/user', userRouter);
+// app.use('/api/balance', balanceRouter);
 
 
 app.use(middleware.unknownEndpoint);

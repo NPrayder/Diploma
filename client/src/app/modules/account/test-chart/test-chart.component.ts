@@ -12,12 +12,11 @@ export class TestChartComponent implements OnInit {
   public radarChartOptions: RadialChartOptions = {
     responsive: true,
   };
-  public radarChartLabels: Label[] = ['Eating', 'Drinking', 'Sleeping', 'Designing', 'Coding', 'Cycling', 'Running'];
+  public radarChartLabels: Label[] = ['05/05/2020', '05/10/2020', '05/12/2020', '05/15/2020', '05/25/2020'];
 
   public radarChartData: ChartDataSets[] = [
-    { data: [65, 59, 90, 81, 56, 55, 40], label: 'Series A' },
-    { data: [28, 48, 40, 29, 96, 27, 100], label: 'Series B' },
-    { data: [28, 65, 40, 90, 40, 81, 100], label: 'Series C' },
+    { data: [20, 10, 80, 170, 56], label: 'Приват банк' },
+    { data: [433, 0, 300, 70, 56], label: 'MonoBank' },
   ];
   @Input() radarChartType: ChartType = 'bar';
 

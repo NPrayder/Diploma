@@ -1,5 +1,5 @@
 const userRouter = require('express').Router();
-const User = require('../models/user');
+const User = require('../models/user.model');
 const Monobank = require('monobank-node');
 
 userRouter.get('/user-info', async (request, response) => {

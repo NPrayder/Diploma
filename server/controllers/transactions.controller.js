@@ -1,7 +1,7 @@
 const transactionsRouter = require('express').Router();
 const Mobobank = require('monobank-node');
-const User = require('../models/user');
-const Transaction = require('../models/transaction');
+const User = require('../models/user.model');
+const Transaction = require('../models/transaction.model');
 const CATEGORIES = require('../constants/categories.json');
 const mcc = require('mcc');
 
@@ -14,9 +14,9 @@ transactionsRouter.get('/', async (request, response) => {
     const selectConfig = buildSelectConfig(request);
 
     try {
-        const user = await User.findOne({_id: body.user.id});
+        const userId = body.user.id;
 
-        const isUpdated = await retrieveMonoTransactions(user);
+        const isUpdated = await retrieveMonoTransactions(userId);
         isUpdated && await User.updateOne({_id: user.id}, {lastMonoLoad: getNow(true)});
 
         // await Transaction.deleteMany({});

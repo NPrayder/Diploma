@@ -1,11 +1,11 @@
 <div class="container">
-  <h1 class="title">Додайте свою карту MonoBank</h1>
-  <p class="description">Тут буде текст про те як додати карту <a href="https://api.monobank.ua" target="_blank">тут</a></p>
+  <h1 class="title">Add your MonoBank card</h1>
+  <p class="description">Get your mono token <a href="https://api.monobank.ua" target="_blank">here</a> and fill form below</p>
   <mat-form-field appearance="outline">
-    <mat-label>Токен</mat-label>
+    <mat-label>Token</mat-label>
     <input
       matInput
-      placeholder="Токен"
+      placeholder="Token"
       type="text"
       [(ngModel)]="monoToken"
     >
@@ -19,6 +19,6 @@
     color="primary"
     (click)="addToken()"
   >
-    Зберегти токен
+    Save token
   </button>
 </div>
