@@ -6,7 +6,7 @@ const middleware = require('./utils/middleware');
 const mongoose = require('mongoose');
 const morgan = require('morgan');
 
-const loginRouter = require('./controllers/login');
+const loginRouter = require('./controllers/login.controller');
 const wizardRouter = require('./controllers/wizard.controller');
 const transactionsRouter = require('./controllers/transactions.controller');
 const currencyRateRouter = require('./controllers/currency-rate.controller');

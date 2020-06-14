@@ -1,12 +1,10 @@
 const transactionsRouter = require('express').Router();
-const Mobobank = require('monobank-node');
 const User = require('../models/user.model');
 const Transaction = require('../models/transaction.model');
 const CATEGORIES = require('../constants/categories.json');
+const monobankService = require('../services/monobank.service');
+const privatbankService = require('../services/privatbank.service');
 const mcc = require('mcc');
-
-const MONOBANK = 2;
-const PRIVATBANK = 1;
 
 transactionsRouter.get('/', async (request, response) => {
     const {body} = request;
@@ -16,12 +14,15 @@ transactionsRouter.get('/', async (request, response) => {
     try {
         const userId = body.user.id;
 
-        const isUpdated = await retrieveMonoTransactions(userId);
-        isUpdated && await User.updateOne({_id: user.id}, {lastMonoLoad: getNow(true)});
+        await monobankService.getTransactions(userId);
+        await privatbankService.retrieveTransactions(userId);
 
         // await Transaction.deleteMany({});
 
-        const transactions = await Transaction.find({user: user.id, ...selectConfig}).sort('-time');
+        const transactions = await Transaction.find({
+            user: userId,
+            ...selectConfig
+        }).sort('-time');
 
         const mappedData = transactions.map(t => {
             return {
@@ -46,8 +47,8 @@ transactionsRouter.get('/stats', async (request, response) => {
     try {
         const user = await User.findOne({_id: body.user.id});
 
-        const isUpdated = await retrieveMonoTransactions(user);
-        isUpdated && await User.updateOne({_id: user.id}, {lastMonoLoad: getNow(true)});
+        await monobankService.retrieveTransactions(user.id);
+        await privatbankService.retrieveTransactions(user.id);
 
         const expenses = await aggregateData({amount: {$lte: 0}}, selectConfig);
         const incomes = await aggregateData({amount: {$gte: 0}}, selectConfig);
@@ -64,33 +65,23 @@ transactionsRouter.get('/categories', (request, response) => {
     response.json(Object.keys(CATEGORIES));
 });
 
-async function retrieveMonoTransactions(user) {
-    const {monoToken, lastMonoLoad} = user;
+async function aggregateData(condition, config) {
+    const [data] = await Transaction.aggregate([
+        {
+            $match: {$and: [condition, config]},
+        },
+        {
+            $group: {
+                _id: null,
+                total: {$sum: '$amount'}
+            }
+        }]);
 
-    if (getNow(true) - lastMonoLoad < 60) {
-        return false;
+    if (data && data.total) {
+        return data.total / 100;
+    } else {
+        return 0;
     }
-
-    const monobankApi = new Mobobank(monoToken);
-    const transactions = await monobankApi.getStatement(getTime(lastMonoLoad));
-
-    if (transactions.error) {
-        throw new Error(transactions.error);
-    }
-
-    await saveMonoTransactions(transactions, user.id);
-    return true;
-}
-
-async function saveMonoTransactions(transactions, user) {
-    if (!transactions.length) {
-        return;
-    }
-
-    await transactions.forEach(async t => {
-        const transaction = new Transaction({...t, time: t.time * 1000, user, type: MONOBANK});
-        await transaction.save();
-    });
 }
 
 function buildSelectConfig(request) {
@@ -111,46 +102,6 @@ function buildSelectConfig(request) {
     }
 
     return config;
-}
-
-function getTime(time) {
-    const now = getNow(true);
-    const maxPeriod = 2678400;
-
-    if (time) {
-        return {
-            from: time,
-            to: now
-        };
-    } else {
-        return {
-            from: now - maxPeriod,
-            to: now
-        };
-    }
-}
-
-function getNow(isMono) {
-    return isMono ? Math.floor(Date.now() / 1000) : Date.now();
-}
-
-async function aggregateData(condition, config) {
-    const [data] = await Transaction.aggregate([
-        {
-            $match: {$and: [condition, config]},
-        },
-        {
-            $group: {
-                _id: null,
-                total: {$sum: '$amount'}
-            }
-        }]);
-
-    if (data && data.total) {
-        return data.total / 100;
-    } else {
-        return 0;
-    }
 }
 
 module.exports = transactionsRouter;
