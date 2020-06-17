@@ -1,5 +1,5 @@
 .container {
-  height: calc(100vh - 60px);
+  height: calc(100vh - 80px);
   margin-top: 60px;
   display: flex;
 
@@ -8,6 +8,7 @@
   }
 
   .router-wrapper {
-    width: calc(100vw - 200px);
+    width: calc(100vw - 188px);
+    padding: 12px;
   }
 }

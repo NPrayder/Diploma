@@ -24,7 +24,11 @@ const routes: Routes = [
       {
         path: 'transactions',
         component: TranactionsRootComponent
-      }
+      },
+      {
+        path: 'balance',
+        loadChildren: () => import('./balance/balance.module').then(module => module.BalanceModule)
+      },
     ]
   }
 ];

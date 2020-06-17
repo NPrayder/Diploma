@@ -15,7 +15,7 @@ const routes: Routes = [
         component: CurrencyRateComponent,
       },
       {
-        path: ':currency',
+        path: 'currency/:currency',
         component: CurrencyDetailedViewComponent
       }
     ]

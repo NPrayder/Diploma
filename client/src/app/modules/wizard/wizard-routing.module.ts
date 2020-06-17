@@ -5,6 +5,7 @@ import { UserResolver } from '../../shared/core/services/user.resolver';
 import { ChooseBankStepComponent } from './choose-bank-step/choose-bank-step.component';
 import { MonoStepComponent } from './mono-step/mono-step.component';
 import { SuccessfulAddingComponent } from './successful-adding/successful-adding.component';
+import { PrivatStepComponent } from './privat-step/privat-step.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,10 @@ const routes: Routes = [
       {
         path: 'mono',
         component: MonoStepComponent
+      },
+      {
+        path: 'privat',
+        component: PrivatStepComponent,
       },
       {
         path: 'successful-adding',

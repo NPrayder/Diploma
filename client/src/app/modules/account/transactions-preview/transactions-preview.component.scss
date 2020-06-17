@@ -1,18 +1,22 @@
 table {
   width: 98%;
   margin: 24px 12px 0;
+
+  td {
+    max-width: 220px;
+  }
 }
 
 .lite-container {
   width: 100%;
-  max-width: 320px;
   display: flex;
   flex-direction: column;
   align-items: center;
 
   .item {
     width: 100%;
-    display: flex;
+    display: grid;
+    grid-template-columns: auto 1fr auto;
     margin: 8px;
     align-items: center;
     justify-content: space-between;
@@ -22,6 +26,7 @@ table {
     padding: 8px 16px;
 
     &.show-more {
+      display: flex;
       justify-content: center;
       cursor: pointer;
 

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../../../environments/environment';
-import { SimpleResponse } from '../../../../shared/models/simple-response-interface';
+import { SimpleResponse } from '../../../../shared/core/models/simple-response-interface';
 
 @Injectable()
 export class WizardService {
@@ -13,7 +13,11 @@ export class WizardService {
     return this.httpClient.post<SimpleResponse>(environment.addMonoTokenUrl, {token});
   }
 
-  // addPrivatToken(token: string): Observable<any> {
-  //
-  // }
+  addPrivatToken(privatUserId: string, cardNum: string, password: string): Observable<SimpleResponse> {
+    return this.httpClient.post<SimpleResponse>(environment.addPrivatTokenUrl, {
+      privatUserId,
+      password,
+      cardNum
+    });
+  }
 }

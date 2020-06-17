@@ -4,7 +4,7 @@ const bank = require('../constants/bank.constants');
 const Mobobank = require('monobank-node');
 
 async function retrieveTransactions(userId) {
-    const {token, lastLoadingTime} = await MonoInfo.findOne({user: userId});
+    const {token, lastLoadingTime, cardNum} = await MonoInfo.findOne({user: userId});
 
     if (getNow(true) - lastLoadingTime < 60) {
         return false;
@@ -17,11 +17,11 @@ async function retrieveTransactions(userId) {
         throw new Error(transactions.error);
     }
 
-    await saveTransactions(transactions, userId);
+    await saveTransactions(transactions, userId, cardNum);
     return true;
 }
 
-async function saveTransactions(transactions, user) {
+async function saveTransactions(transactions, user, cardNum) {
     if (!transactions.length) {
         return;
     }
@@ -31,7 +31,8 @@ async function saveTransactions(transactions, user) {
             ...transaction,
             time: transaction.time * 1000,
             user,
-            type: bank.MONOBANK
+            type: bank.MONOBANK,
+            cardNum
         });
         await newTransaction.save();
     }
@@ -63,7 +64,23 @@ function getTime(time) {
     }
 }
 
+async function getBalance(user) {
+    const {token} = await MonoInfo.findOne({user});
+    const monobankApi = new Mobobank(token);
+    const {accounts} = await monobankApi.getPersonalInfo();
+    const accountsWithMoney = accounts.filter(account => account.balance);
+
+    return accountsWithMoney.map(account => ({
+        currency: 'UAH',
+        balance: account.balance,
+        creditLimit: account.creditLimit,
+        cardNum: account.maskedPan[0],
+        type: bank.MONOBANK
+    }));
+}
+
 module.exports = {
     retrieveTransactions,
     getTransactions,
+    getBalance,
 }

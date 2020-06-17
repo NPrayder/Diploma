@@ -13,11 +13,13 @@ transactionsRouter.get('/', async (request, response) => {
 
     try {
         const userId = body.user.id;
+        console.log(userId);
 
         await monobankService.getTransactions(userId);
         await privatbankService.retrieveTransactions(userId);
 
         // await Transaction.deleteMany({});
+        // await User.deleteMany({});
 
         const transactions = await Transaction.find({
             user: userId,
@@ -33,6 +35,7 @@ transactionsRouter.get('/', async (request, response) => {
 
         response.json(mappedData);
     } catch (e) {
+        console.log(e);
         response.status(400).json({
             error: e.message
         });
@@ -93,6 +96,10 @@ function buildSelectConfig(request) {
 
     if (request.query.category) {
         config.mcc = {"$in": CATEGORIES[request.query.category]}
+    }
+
+    if (request.query.cardNum) {
+        config.cardNum = request.query.cardNum;
     }
 
     if (request.query.startDate || request.query.endDate) {

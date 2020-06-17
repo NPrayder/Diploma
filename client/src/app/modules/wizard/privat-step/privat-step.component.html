@@ -1,0 +1,71 @@
+<div class="container">
+  <h1 class="title">Add your PrivatBank card</h1>
+  <div class="description">
+    <p>
+      According to the instructions indicated on the PrivatBank API website, you need to:
+    </p>
+    <ul>
+      <li>Log in to the Privat24 account for physical. persons using the <a href="http://privat24.ua">link</a></li>
+      <li>Enter your username and static password</li>
+      <li>Enter the dynamic OTP password received in SMS on your mobile phone</li>
+      <li>Go to the menu section "All services" -> "Business" -> "Merchant"</li>
+      <li>Bind the card to work with the merchant and specify it in the field below</li>
+      <li>Indicate the IP address of our server from which requests will be made: 127.0.0.1</li>
+      <li>Check the services necessary for work (others can be disabled):</li>
+      <ul>
+        <li>Statement for merchandise merchants</li>
+        <li>Statement for merchandise merchants</li>
+        <li>The balance of the merchandise merchandise</li>
+        <li>Cartographic information</li>
+      </ul>
+      <li>Click "Next"</li>
+      <li>Confirm OTP Password</li>
+      <li>
+        Registration is over. Merchant is assigned an ID and Password. The merchant is in the “Test” status, which will
+        be
+        completely enough.
+      </li>
+      <li>Indicate the ID and Password (key) of the Merchant, and indicate the number of the selected card in the fields
+        below.
+      </li>
+    </ul>
+  </div>
+  <mat-form-field appearance="outline">
+    <mat-label>User ID</mat-label>
+    <input
+      matInput
+      placeholder="User ID"
+      type="text"
+      [(ngModel)]="userId"
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Card num</mat-label>
+    <input
+      matInput
+      placeholder="Card num"
+      type="text"
+      [(ngModel)]="cardNum"
+    >
+  </mat-form-field>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input
+      matInput
+      placeholder="Password"
+      type="text"
+      [(ngModel)]="password"
+    >
+  </mat-form-field>
+
+  <button
+    mat-flat-button
+    [disabled]="disableButton"
+    color="primary"
+    (click)="addToken()"
+  >
+    Save token
+  </button>
+</div>

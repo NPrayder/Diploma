@@ -1,0 +1,32 @@
+<div class="container" *ngIf="currentBalance">
+  <app-card-preview
+    [cardNum]="balanceService.normalizeCardNum(currentBalance.cardNum)"
+    [bank]="currentBalance.type"
+  ></app-card-preview>
+
+  <div class="card-container">
+    <mat-card>
+      <mat-card-header>Balance</mat-card-header>
+      <mat-card-content>{{getBalance(currentBalance.balance)}}</mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>Credit limit</mat-card-header>
+      <mat-card-content>{{getBalance(currentBalance.creditLimit)}}</mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>Expanses for this month</mat-card-header>
+      <mat-card-content>
+        <mat-icon class="expense-icon">arrow_circle_up</mat-icon>
+        {{getBalance(expenses, false)}}</mat-card-content>
+    </mat-card>
+
+    <mat-card>
+      <mat-card-header>Incomes for this month</mat-card-header>
+      <mat-card-content>
+        <mat-icon class="income-icon">arrow_circle_down</mat-icon>
+        {{getBalance(incomes, false)}}</mat-card-content>
+    </mat-card>
+  </div>
+</div>

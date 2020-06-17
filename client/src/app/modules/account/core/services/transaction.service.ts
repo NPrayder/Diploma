@@ -13,12 +13,17 @@ export class TransactionService {
 
   constructor(private httpClient: HttpClient) {
     this.transactions = new ReplaySubject<Transaction[]>(1);
+    this.requestTransactions()
+      .subscribe((transactions: Transaction[]) => {
+        this.transactions.next(transactions);
+      });
+  }
+
+  requestTransactions(): Observable<Transaction[]> {
+    return this.httpClient.get<Transaction[]>(environment.transactionURL);
   }
 
   getAllTransactions(): Observable<Transaction[]> {
-    return this.httpClient.get<Transaction[]>(environment.transactionURL)
-      .pipe(
-        tap((transactions) => this.transactions.next(transactions))
-      );
+    return this.transactions.asObservable();
   }
 }

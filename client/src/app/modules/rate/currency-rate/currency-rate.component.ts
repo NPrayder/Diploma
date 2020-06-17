@@ -1,6 +1,6 @@
 import { Component, Input, OnDestroy, OnInit } from '@angular/core';
-import { RateService } from '../../../shared/core/services/rate.service';
-import { Rate } from '../../../shared/models/rate.interface';
+import { RateService } from '../core/services/rate.service';
+import { Rate } from '../core/models/rate.interface';
 import { Subscription } from 'rxjs';
 import * as currencyCodes from 'currency-codes';
 import { Router } from '@angular/router';
@@ -11,7 +11,6 @@ import { Router } from '@angular/router';
   styleUrls: ['./currency-rate.component.scss']
 })
 export class CurrencyRateComponent implements OnInit, OnDestroy {
-  @Input() hideHeader: boolean;
   rates: Rate[] = [];
   subscription: Subscription;
 
@@ -28,19 +27,8 @@ export class CurrencyRateComponent implements OnInit, OnDestroy {
       }));
   }
 
-  getCurrencyName(code: number): string {
-    return currencyCodes.number(`${code}`).currency;
-  }
-
-  getCurrencySymbol(code: number): string {
-    const id = currencyCodes.number(`${code}`).code;
-    const intl = new Intl.NumberFormat('ru-RU', {style: 'currency', currency: id});
-    return intl.format(0).replace(/\d+|\.|,/g, '');
-  }
-
   async navigateToDetails(rate: Rate): Promise<void> {
-    const code = currencyCodes.number(rate.currencyCodeA.toString()).code;
-    await this.router.navigate(['/', 'rate', code.toLowerCase()]);
+    await this.router.navigate(['/', 'rate', 'currency', rate.currencyName]);
   }
 
   ngOnDestroy() {

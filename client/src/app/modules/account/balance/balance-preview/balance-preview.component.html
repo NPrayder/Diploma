@@ -1,0 +1,12 @@
+<div class="container">
+  <div class="balance-card mat-elevation-z5" *ngFor="let balance of balances" [routerLink]="'./preview/' + balance.cardNum">
+    <div class="bank-logo">
+      <img src="../../../../../assets/{{balanceService.getBankLogo(balance)}}" alt="bank logo">
+    </div>
+    <div class="balance">{{getBalance(balance)}}</div>
+    <div class="bank-system">
+      <img src="../../../../../assets/{{balanceService.getBankSystemLogo(balance)}}" alt="bank system logo">
+    </div>
+    <div class="card-number">{{balanceService.normalizeCardNum(balance.cardNum)}}</div>
+  </div>
+</div>

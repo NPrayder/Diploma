@@ -1,20 +1,13 @@
 import { Injectable } from '@angular/core';
-import {
-  HttpRequest,
-  HttpHandler,
-  HttpEvent,
-  HttpInterceptor
-} from '@angular/common/http';
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { SpinnerService } from './spinner.service';
 import { SKIP_TOKEN_INTERCEPTOR } from '../constants/skip-header';
 import { UserService } from './user.service';
 
 @Injectable()
 export class TokenInterceptor implements HttpInterceptor {
 
-  constructor(private spinnerService: SpinnerService,
-              private userService: UserService) {
+  constructor(private userService: UserService) {
   }
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

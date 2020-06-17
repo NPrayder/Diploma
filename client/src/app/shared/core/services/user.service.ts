@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, ReplaySubject } from 'rxjs';
-import { User } from '../../models/user-interface';
+import { User } from '../models/user-interface';
 
 @Injectable({
   providedIn: 'root'

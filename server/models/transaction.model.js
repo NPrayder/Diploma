@@ -9,6 +9,7 @@ const transactionSchema = mongoose.Schema({
     balance: Number,
     amount: Number,
     type: Number,
+    cardNum: String,
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

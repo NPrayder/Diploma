@@ -11,6 +11,7 @@ import { MonoStepComponent } from './mono-step/mono-step.component';
 import { FormsModule } from '@angular/forms';
 import { SuccessfulAddingComponent } from './successful-adding/successful-adding.component';
 import { WizardService } from './core/services/wizard.service';
+import { PrivatStepComponent } from './privat-step/privat-step.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { WizardService } from './core/services/wizard.service';
     WizardRootComponent,
     ChooseBankStepComponent,
     MonoStepComponent,
-    SuccessfulAddingComponent
+    SuccessfulAddingComponent,
+    PrivatStepComponent
   ],
   imports: [
     CommonModule,

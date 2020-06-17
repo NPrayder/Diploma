@@ -1,0 +1,39 @@
+.container {
+  .card-container {
+    margin-top: 48px;
+
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 32px;
+
+    mat-card {
+      width: 250px;
+
+      mat-card-header {
+        font-weight: 700;
+      }
+
+      mat-card-content {
+        margin-top: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+
+        .income-icon {
+          color: #008a00;
+        }
+
+        .expense-icon {
+          color: lighten(red, 10);
+        }
+      }
+    }
+  }
+}
+
+::ng-deep {
+  .mat-card-header-text {
+    margin: 0 !important;
+  }
+}

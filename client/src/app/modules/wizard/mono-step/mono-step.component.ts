@@ -3,7 +3,7 @@ import { Subscription } from 'rxjs';
 import { WizardService } from '../core/services/wizard.service';
 import { SnackbarService } from '../../../shared/core/services/snackbar.service';
 import { finalize } from 'rxjs/operators';
-import { SimpleResponse } from '../../../shared/models/simple-response-interface';
+import { SimpleResponse } from '../../../shared/core/models/simple-response-interface';
 import { Router } from '@angular/router';
 
 @Component({

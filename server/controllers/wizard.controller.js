@@ -27,11 +27,15 @@ wizardRouter.post('/add-mono-token', async (request, response) => {
             });
         }
 
-        const newMonoToken = new MonoInfo({
-            token: body.token,
-            user: userId
-        });
-        await newMonoToken.save();
+        const {accounts} = monoResponse;
+        for (const account of accounts) {
+            const newMonoToken = new MonoInfo({
+                token: body.token,
+                user: userId,
+                cardNum: account.maskedPan[0]
+            });
+            await newMonoToken.save();
+        }
         await User.findByIdAndUpdate(userId, {cardAdded: true}, {upsert: true, useFindAndModify: false});
 
         response.json({

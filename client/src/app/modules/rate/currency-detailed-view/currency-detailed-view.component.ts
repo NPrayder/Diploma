@@ -1,11 +1,11 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { BaseChartDirective, Color, Label } from 'ng2-charts';
+import { BaseChartDirective, Label } from 'ng2-charts';
 import { ChartDataSets, ChartOptions } from 'chart.js';
-import { RateService } from '../../../shared/core/services/rate.service';
-import { RateForChart } from '../../../shared/models/rate-for-chart.interface';
+import { RateService } from '../core/services/rate.service';
 import { MatDatepicker, MatDatepickerInputEvent } from '@angular/material/datepicker';
 import { BreakpointObserver } from '@angular/cdk/layout';
+import { Rate } from '../core/models/rate.interface';
 
 @Component({
   selector: 'app-currency-detailed-view',
@@ -15,7 +15,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 export class CurrencyDetailedViewComponent implements OnInit {
   minDate: Date;
   maxDate;
-  rates: RateForChart[];
+  rates: Rate[];
 
   convertedFrom: string;
   convertedTo = 'UAH';
@@ -125,14 +125,14 @@ export class CurrencyDetailedViewComponent implements OnInit {
       });
   }
 
-  normalizedDate(time: number): Date {
-    return new Date(time / 1000);
+  normalizedDate(time: string): Date {
+    return new Date(time);
   }
 
   setMinMaxDate(): void {
-    let date = new Date(this.rates[0].time / 1000);
+    let date = new Date(this.rates[0].date);
     this.minDate = date;
-    date = new Date(this.rates[this.rates.length - 1].time / 1000);
+    date = new Date(this.rates[this.rates.length - 1].date);
     this.maxDate = date;
   }
 
@@ -141,10 +141,10 @@ export class CurrencyDetailedViewComponent implements OnInit {
     const data2 = [];
     const labels = [];
     this.rates.forEach(rate => {
-      const date = this.normalizedDate(rate.time);
+      const date = this.normalizedDate(rate.date);
       if (date >= this.fromDate && date <= this.toDate) {
-        data1.push(rate.buy);
-        data2.push(rate.sell);
+        data1.push(rate.buyPrice);
+        data2.push(rate.sellPrice);
         labels.push(`${date.getFullYear()}/${date.getMonth() + 1}/${date.getDate()}`);
       }
     });
@@ -172,11 +172,11 @@ export class CurrencyDetailedViewComponent implements OnInit {
 
   calcRate(): void {
     if (this.convertedFrom === 'UAH') {
-      const {buy} = this.rates[this.rates.length - 1];
-      this.toValue = +(this.fromValue / buy).toFixed(2);
+      const {buyPrice} = this.rates[this.rates.length - 1];
+      this.toValue = +(this.fromValue / buyPrice).toFixed(2);
     } else {
-      const {sell} = this.rates[this.rates.length - 1];
-      this.toValue = +(this.fromValue * sell).toFixed(2);
+      const {sellPrice} = this.rates[this.rates.length - 1];
+      this.toValue = +(this.fromValue * sellPrice).toFixed(2);
     }
   }
 }

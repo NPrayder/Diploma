@@ -10,7 +10,8 @@ const loginRouter = require('./controllers/login.controller');
 const wizardRouter = require('./controllers/wizard.controller');
 const transactionsRouter = require('./controllers/transactions.controller');
 const currencyRateRouter = require('./controllers/currency-rate.controller');
-const userRouter = require('./controllers/user');
+const userRouter = require('./controllers/user.controller');
+const balanceRouter = require('./controllers/balance.controller');
 
 const app = express();
 
@@ -35,7 +36,7 @@ app.use(middleware.tokenVerifier);
 app.use('/api/wizard', wizardRouter);
 app.use('/api/transactions', transactionsRouter);
 app.use('/api/user', userRouter);
-// app.use('/api/balance', balanceRouter);
+app.use('/api/balance', balanceRouter);
 
 
 app.use(middleware.unknownEndpoint);

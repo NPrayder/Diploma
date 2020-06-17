@@ -10,6 +10,7 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { TokenInterceptor } from './shared/core/services/token.interceptor';
 import { UserResolver } from './shared/core/services/user.resolver';
+import { SharedModule } from './shared/shared.module';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { UserResolver } from './shared/core/services/user.resolver';
     HttpClientModule,
     MatSnackBarModule,
     MatProgressSpinnerModule,
+    SharedModule,
   ],
   providers: [
     UserResolver,

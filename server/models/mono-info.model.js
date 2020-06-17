@@ -4,6 +4,7 @@ require('mongoose-long')(mongoose);
 const monoInfoSchema = mongoose.Schema({
     token: String,
     lastLoadingTime: mongoose.Schema.Types.Long,
+    cardNum: String,
     user: {
        type: mongoose.Schema.Types.ObjectID,
        ref: 'User'

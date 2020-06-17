@@ -1,13 +1,13 @@
 .container {
   margin-top: 24px;
   display: grid;
-  grid-template: "chart rate"
+  grid-template-columns: 2fr 1fr;
+  grid-template-areas: "chart rate"
                   "chart1 chart1";
   grid-gap: 40px 16px;
 
   app-transactions-preview {
     grid-area: rate;
-    width: 320px;
   }
 
   .c1 {
