@@ -9,12 +9,16 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { RateModule } from '../rate/rate.module';
 import { NavigationComponent } from './navigation/navigation.component';
 import { MaterialModule } from '../../shared/modules/material.module';
-import { TestChartComponent } from './test-chart/test-chart.component';
+import { PieChartComponent } from './charts/pie-chart/pie-chart.component';
 import { ChartsModule } from 'ng2-charts';
 import { TransactionsPreviewComponent } from './transactions-preview/transactions-preview.component';
 import { TranactionsRootComponent } from './tranactions-root/tranactions-root.component';
 import { MatTableModule } from '@angular/material/table';
 import { CdkTableModule } from '@angular/cdk/table';
+import { LinierChartComponent } from './charts/linier-chart/linier-chart.component';
+import { RadarChartComponent } from './charts/radar-chart/radar-chart.component';
+import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -22,9 +26,12 @@ import { CdkTableModule } from '@angular/cdk/table';
     AccountRootComponent,
     DashboardComponent,
     NavigationComponent,
-    TestChartComponent,
+    PieChartComponent,
     TransactionsPreviewComponent,
-    TranactionsRootComponent
+    TranactionsRootComponent,
+    LinierChartComponent,
+    RadarChartComponent,
+    BarChartComponent
   ],
   imports: [
     CommonModule,
@@ -33,7 +40,8 @@ import { CdkTableModule } from '@angular/cdk/table';
     RateModule,
     MaterialModule,
     ChartsModule,
-    CdkTableModule
+    CdkTableModule,
+    ReactiveFormsModule
   ],
   providers: [
     UserResolver

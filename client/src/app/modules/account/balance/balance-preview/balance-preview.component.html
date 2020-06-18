@@ -9,4 +9,7 @@
     </div>
     <div class="card-number">{{balanceService.normalizeCardNum(balance.cardNum)}}</div>
   </div>
+  <div class="balance-card new" routerLink="/wizard" [state]="{data: {addNew: true}}">
+    <mat-icon>credit_card</mat-icon> Add one more
+  </div>
 </div>

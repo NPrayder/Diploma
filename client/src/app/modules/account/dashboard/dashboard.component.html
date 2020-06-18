@@ -1,14 +1,18 @@
 <div class="container">
   <app-transactions-preview [transactions]="transactions" liteVersion="true"></app-transactions-preview>
   <div class="c1">
-    <app-test-chart radarChartType="line"></app-test-chart>
+    <app-pie-chart *ngIf="transactions" [transactions]="transactions"></app-pie-chart>
   </div>
   <div class="wrapper">
-    <div class="c2">
-      <app-test-chart radarChartType="radar"></app-test-chart>
-    </div>
-    <div class="c3">
-      <app-test-chart radarChartType="pie"></app-test-chart>
-    </div>
+    <app-linier-chart *ngIf="transactions" [transactions]="transactions"></app-linier-chart>
+    <app-bar-chart *ngIf="transactions" [transactions]="transactions"></app-bar-chart>
   </div>
+<!--  <div class="wrapper">-->
+<!--    <div class="c2">-->
+<!--      <app-pie-chart radarChartType="pie" [radarChartLabels]="labels" [radarChartData]="chardDataset"></app-pie-chart>-->
+<!--    </div>-->
+<!--    <div class="c3">-->
+<!--      <app-pie-chart radarChartType="pie" [radarChartLabels]="labels" [radarChartData]="chardDataset"></app-pie-chart>-->
+<!--    </div>-->
+<!--  </div>-->
 </div>

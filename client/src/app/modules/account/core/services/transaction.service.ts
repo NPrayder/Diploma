@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, ReplaySubject } from 'rxjs';
 import { Transaction } from '../models/transaction.interface';
 import { environment } from '../../../../../environments/environment';
-import { tap } from 'rxjs/operators';
+import { FlowStats } from '../../../../shared/core/models/flow-stats.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -25,5 +25,9 @@ export class TransactionService {
 
   getAllTransactions(): Observable<Transaction[]> {
     return this.transactions.asObservable();
+  }
+
+  getFlow(bankName?: string): Observable<FlowStats> {
+    return this.httpClient.get<FlowStats>(`${environment.statsURL}?${bankName ? 'bankName=' + bankName : ''}`);
   }
 }

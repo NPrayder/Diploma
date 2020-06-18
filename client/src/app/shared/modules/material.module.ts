@@ -12,6 +12,7 @@ import { MatTableModule } from '@angular/material/table';
 import { MatSortModule } from '@angular/material/sort';
 import { CdkTableModule } from '@angular/cdk/table';
 import { MatTooltipModule } from '@angular/material/tooltip';
+import { MatSelectModule } from '@angular/material/select';
 
 const modules = [
   MatInputModule,
@@ -27,6 +28,7 @@ const modules = [
   MatSortModule,
   CdkTableModule,
   MatTooltipModule,
+  MatSelectModule,
 ];
 
 @NgModule({

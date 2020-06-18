@@ -15,6 +15,24 @@
     grid-template-columns: 1fr 1fr 1fr 1fr;
     align-items: center;
 
+    &.new {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-size: 20px;
+      background-color: #485dff;
+      transition: all .1s linear;
+
+      mat-icon {
+        margin-right: 8px;
+      }
+
+      &:hover {
+        background-color: darken(#485dff, 20);
+      }
+    }
+
     .bank-logo {
       margin: 0 auto;
       padding: 0 12px;

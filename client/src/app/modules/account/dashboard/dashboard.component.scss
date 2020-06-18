@@ -17,11 +17,15 @@
 
   .wrapper {
     padding: 12px 0;
-    display: flex;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    width: 100%;
+    grid-column-gap: 30px;
     grid-area: chart1;
-  }
+    align-items: center;
 
-  .c2, .c3 {
-    width: 50%;
+    @media (max-width: 1300px) {
+      grid-template-columns: 1fr;
+    }
   }
 }

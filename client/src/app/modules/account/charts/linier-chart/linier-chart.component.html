@@ -1,0 +1,31 @@
+<div class="flex">
+  <div class="flex-item">
+    <div style="display: block;">
+      <canvas baseChart width="800"
+              [datasets]="lineChartData"
+              [labels]="lineChartLabels"
+              [options]="lineChartOptions"
+              [colors]="lineChartColors"
+              [legend]="lineChartLegend"
+              [chartType]="lineChartType"></canvas>
+    </div>
+  </div>
+  <div class="flex-item">
+    <mat-form-field>
+      <mat-label>Choose bank</mat-label>
+      <mat-select [formControl]="bankType" (selectionChange)="buildChart()">
+        <mat-option value="mono">MonoBank</mat-option>
+        <mat-option value="privat">PrivatBank</mat-option>
+        <mat-option value="all">All banks</mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Type of flow</mat-label>
+      <mat-select [formControl]="flowType" (selectionChange)="buildChart()">
+        <mat-option value="expenses">Expenses</mat-option>
+        <mat-option value="incomes">Incomes</mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { TransactionService } from '../core/services/transaction.service';
 import { Transaction } from '../core/models/transaction.interface';
 import { Subscription } from 'rxjs';
+import { ChartDataSets } from 'chart.js';
 
 @Component({
   selector: 'app-dashboard',
@@ -12,7 +13,11 @@ export class DashboardComponent implements OnInit, OnDestroy {
   transactions: Transaction[];
   subscription: Subscription;
 
-  constructor(private transactionService: TransactionService) { }
+  labels: any[] = [];
+  chardDataset: ChartDataSets[];
+
+  constructor(private transactionService: TransactionService) {
+  }
 
   ngOnInit(): void {
     this.subscription = new Subscription();
