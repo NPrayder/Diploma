@@ -35,7 +35,7 @@ export class PrivatStepComponent implements OnInit, OnDestroy {
           finalize(() => this.disableButton = false)
         )
         .subscribe(async (response: SimpleResponse) => {
-          this.snackbarService.showSnackbar(response.msg);
+          // this.snackbarService.showSnackbar(response.msg);
           await this.router.navigate(['wizard', 'successful-adding']);
         })
     );

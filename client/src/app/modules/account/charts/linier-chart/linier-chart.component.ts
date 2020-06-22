@@ -11,6 +11,7 @@ import { BankTypes } from '../../core/models/bank-types.enum';
   styleUrls: ['./linier-chart.component.scss']
 })
 export class LinierChartComponent implements OnInit {
+  width: number;
   @Input() transactions: Transaction[];
   public lineChartData: ChartDataSets[] = [
     {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
@@ -95,6 +96,7 @@ export class LinierChartComponent implements OnInit {
 
   ngOnInit() {
     this.buildChart();
+    this.width = window.innerWidth <= 576 ? window.innerWidth * 0.9 : 800;
   }
 
   filteredTransactions(): Transaction[] {
@@ -129,8 +131,6 @@ export class LinierChartComponent implements OnInit {
     }
 
     this.lineChartLabels = this.lineChartLabels.reverse();
-
-    console.log(this.lineChartLabels);
 
     for (const value of groupedMap.values()) {
       this.lineChartData[0].data.push(value);

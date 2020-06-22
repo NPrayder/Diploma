@@ -1,9 +1,11 @@
-<ng-container *ngIf="userService.getUser() | async">
+<div class="container" *ngIf="userService.getUser() | async">
   <app-header></app-header>
-  <div class="container">
-    <app-navigation></app-navigation>
-    <div class="router-wrapper">
-      <router-outlet></router-outlet>
-    </div>
+  <div class="router-wrapper">
+    <router-outlet></router-outlet>
   </div>
-</ng-container>
+  <app-navigation></app-navigation>
+</div>
+
+<div class="preloader" *ngIf="showPreloader">
+  <app-preloader (animCompleted)="hidePreloader()"></app-preloader>
+</div>

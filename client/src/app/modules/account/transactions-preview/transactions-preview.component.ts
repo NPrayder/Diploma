@@ -11,14 +11,30 @@ export class TransactionsPreviewComponent implements OnInit {
   @Input() liteVersion: boolean;
   @Input() transactions: Transaction[];
 
-  displayedColumns: string[] = ['bank', 'name', 'category', 'amount', 'balance', 'total'];
-
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
 
   isMono(type: BankTypes): boolean {
     return type === BankTypes.MONOBANK;
+  }
+
+  groupTransactions(): any {
+    const grouped = {};
+    this.transactions.forEach(t => {
+      const date = new Date(+t.time).toLocaleDateString();
+      if (grouped[date]) {
+        grouped[date].push(t);
+      } else {
+        grouped[date] = [t];
+      }
+    });
+    return grouped;
+  }
+
+  getKeys(): string[] {
+    return Object.keys(this.groupTransactions());
   }
 }

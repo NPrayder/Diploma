@@ -1,54 +1,58 @@
-<div class="convertor">
-  <mat-form-field appearance="outline">
-    <mat-label>{{convertedFrom}}</mat-label>
-    <input
-      matInput
-      [(ngModel)]="fromValue"
-      [placeholder]="convertedFrom"
-      type="text"
-      (ngModelChange)="calcRate()"
-    >
-  </mat-form-field>
+<div class="container">
+  <div class="convertor">
+    <mat-form-field appearance="outline">
+      <mat-label>{{convertedFrom}}</mat-label>
+      <input
+        matInput
+        [(ngModel)]="fromValue"
+        [placeholder]="convertedFrom"
+        type="text"
+        (ngModelChange)="calcRate()"
+      >
+    </mat-form-field>
 
-  <mat-icon (click)="changeSides()">compare_arrows</mat-icon>
+    <mat-icon (click)="changeSides()">compare_arrows</mat-icon>
 
-  <mat-form-field appearance="outline">
-    <mat-label>{{convertedTo}}</mat-label>
-    <input
-      matInput
-      disabled
-      [(ngModel)]="toValue"
-      [placeholder]="convertedTo"
-      type="text"
-    >
-  </mat-form-field>
-</div>
+    <mat-form-field appearance="outline">
+      <mat-label>{{convertedTo}}</mat-label>
+      <input
+        matInput
+        disabled
+        [(ngModel)]="toValue"
+        [placeholder]="convertedTo"
+        type="text"
+      >
+    </mat-form-field>
+  </div>
 
-<div class="pickers">
-  <mat-form-field>
-    <mat-label>From date</mat-label>
-    <input [(ngModel)]="fromDate" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" (dateChange)="changeFromDate($event)">
-    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-    <mat-datepicker #picker></mat-datepicker>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-label>To date</mat-label>
-    <input [(ngModel)]="toDate" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1" (dateChange)="changeToDate($event)">
-    <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
-    <mat-datepicker #picker1></mat-datepicker>
-  </mat-form-field>
-</div>
+  <div class="pickers">
+    <mat-form-field>
+      <mat-label>From date</mat-label>
+      <input [(ngModel)]="fromDate" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker"
+             (dateChange)="changeFromDate($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>To date</mat-label>
+      <input [(ngModel)]="toDate" matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker1"
+             (dateChange)="changeToDate($event)">
+      <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+      <mat-datepicker #picker1></mat-datepicker>
+    </mat-form-field>
+  </div>
 
-<div class="flex">
-  <div class="flex-item">
-    <div style="display: block;" *ngIf="lineChartData.length">
-      <canvas baseChart width="500" [height]="canvasHeight"
-              [datasets]="lineChartData"
-              [labels]="lineChartLabels"
-              [options]="lineChartOptions"
-              [legend]="lineChartLegend"
-              [chartType]="lineChartType"
-      ></canvas>
+  <div class="flex">
+    <div class="flex-item">
+      <div style="display: block;" *ngIf="lineChartData.length">
+        <canvas baseChart width="500" [height]="canvasHeight"
+                [datasets]="lineChartData"
+                [labels]="lineChartLabels"
+                [options]="lineChartOptions"
+                [legend]="lineChartLegend"
+                [chartType]="lineChartType"
+        ></canvas>
+      </div>
     </div>
   </div>
 </div>

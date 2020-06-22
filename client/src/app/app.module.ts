@@ -27,9 +27,10 @@ import { SharedModule } from './shared/shared.module';
   ],
   providers: [
     UserResolver,
-    { provide: HTTP_INTERCEPTORS, useClass: ErrorHandlerInterceptor, multi: true },
-    { provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true },
+    {provide: HTTP_INTERCEPTORS, useClass: ErrorHandlerInterceptor, multi: true},
+    {provide: HTTP_INTERCEPTORS, useClass: TokenInterceptor, multi: true},
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

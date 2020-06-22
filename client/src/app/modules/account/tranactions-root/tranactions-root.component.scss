@@ -1,4 +1,11 @@
 .pickers {
   display: flex;
   justify-content: space-evenly;
+  margin-top: 24px;
+
+  @media (max-width: 576px) {
+    flex-direction: column;
+    max-width: 90vw;
+    margin: 0 auto;
+  }
 }

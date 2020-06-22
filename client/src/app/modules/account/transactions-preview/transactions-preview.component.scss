@@ -1,9 +1,65 @@
-table {
-  width: 98%;
-  margin: 24px 12px 0;
+.date {
+  text-align: center;
+}
 
-  td {
-    max-width: 220px;
+.container {
+  padding: 0 24px;
+
+  .row {
+    margin: 12px;
+    border-radius: 5px;
+    padding: 8px;
+
+    display: flex;
+    align-items: center;
+
+    .icon {
+      min-width: 48px;
+      min-height: 48px;
+      border-radius: 50%;
+      background-color: #f0f0f0;
+      position: relative;
+      margin-right: 8px;
+
+      img {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+    }
+
+    .operation {
+      .operation-description {
+        max-width: 700px;
+      }
+
+      .operation-category {
+        font-weight: 300;
+        font-size: 12px;
+      }
+    }
+
+    .numbers {
+      margin-left: auto;
+      margin-right: 12px;
+      text-align: right;
+
+      .amount {
+        &.expenses {
+          color: #ff0202;
+        }
+
+        &.incomes {
+          color: #008a00;
+        }
+      }
+
+      .balance {
+        font-weight: 300;
+        font-size: 12px;
+      }
+    }
   }
 }
 

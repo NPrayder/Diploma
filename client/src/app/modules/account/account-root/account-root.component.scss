@@ -1,14 +1,48 @@
 .container {
-  height: calc(100vh - 80px);
-  margin-top: 60px;
-  display: flex;
+  display: grid;
+  grid-template-areas: "header header" "sidenav content";
+  grid-template-columns: 200px auto;
+
+  @media (max-width: 768px) {
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: column;
+    height: 100vh;
+  }
+
+  app-header {
+    grid-area: header;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+  }
 
   app-navigation {
-    width: 200px;
+    grid-area: sidenav;
+
+    @media (max-width: 768px) {
+      position: sticky;
+      bottom: 0;
+      z-index: 2;
+      margin-top: auto;
+    }
   }
 
   .router-wrapper {
-    width: calc(100vw - 188px);
-    padding: 12px;
+    grid-area: content;
   }
+}
+
+.preloader {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
 }

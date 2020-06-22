@@ -1,3 +1,9 @@
+@media (max-width: 576px) {
+  app-card-preview {
+    display: none;
+  }
+}
+
 .container {
   .card-container {
     margin-top: 48px;
@@ -5,6 +11,11 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     grid-gap: 32px;
+
+    @media (max-width: 576px) {
+      grid-template-columns: none;
+      grid-template-rows:  repeat(4, 1fr);
+    }
 
     mat-card {
       width: 250px;

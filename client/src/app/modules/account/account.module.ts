@@ -18,7 +18,7 @@ import { CdkTableModule } from '@angular/cdk/table';
 import { LinierChartComponent } from './charts/linier-chart/linier-chart.component';
 import { RadarChartComponent } from './charts/radar-chart/radar-chart.component';
 import { BarChartComponent } from './charts/bar-chart/bar-chart.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -33,16 +33,17 @@ import { ReactiveFormsModule } from '@angular/forms';
     RadarChartComponent,
     BarChartComponent
   ],
-  imports: [
-    CommonModule,
-    AccountRoutingModule,
-    SharedModule,
-    RateModule,
-    MaterialModule,
-    ChartsModule,
-    CdkTableModule,
-    ReactiveFormsModule
-  ],
+    imports: [
+        CommonModule,
+        AccountRoutingModule,
+        SharedModule,
+        RateModule,
+        MaterialModule,
+        ChartsModule,
+        CdkTableModule,
+        ReactiveFormsModule,
+        FormsModule
+    ],
   providers: [
     UserResolver
   ]

@@ -7,5 +7,11 @@
     display: flex;
     justify-content: space-evenly;
     width: 100%;
+
+    &.pickers {
+      flex-direction: column;
+      width: 90%;
+      margin: 0 auto;
+    }
   }
 }

@@ -3,6 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
+    "watch-outer": "ng serve --host 192.168.0.104 --proxy-config proxy.conf.json",
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build",
     "test": "ng test",
@@ -24,8 +25,10 @@
     "chart.js": "^2.9.3",
     "chartjs-plugin-annotation": "^0.5.7",
     "currency-codes": "^2.1.0",
+    "lottie-web": "^5.6.10",
     "mcc": "^2.2.0",
     "ng2-charts": "^2.3.2",
+    "ngx-lottie": "^6.1.1",
     "rxjs": "~6.5.4",
     "tslib": "^1.10.0",
     "zone.js": "~0.10.2"

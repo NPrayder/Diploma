@@ -1,15 +1,28 @@
 .container {
   height: calc(100vh - 60px);
   width: 200px;
+  position: sticky;
+  top: 60px;
   padding: 16px 16px 0;
-  position: fixed;
-  left: 0;
 
   display: flex;
   flex-direction: column;
   justify-content: space-between;
 
   background-color: #fafafa;
+
+  @media (max-width: 768px) {
+    top: unset;
+    width: 100%;
+    height: unset;
+    flex-direction: row;
+    padding: 0;
+    justify-content: center;
+
+    div {
+      display: flex;
+    }
+  }
 
   .item {
     padding: 12px 16px;
@@ -28,18 +41,30 @@
 
     transition: all .1s linear;
 
+    @media (max-width: 768px) {
+      font-size: 0;
+      padding: 12px;
+      margin: 8px;
+    }
+
     &.active {
       color: white;
       background-color: rgba(purple, 0.7);
     }
 
-    &:hover {
-      color: white;
-      background-color: darken(rgba(purple, 0.7), 10%);
+    @media (min-width: 768px) {
+      &:hover {
+        color: white;
+        background-color: darken(rgba(purple, 0.7), 10%);
+      }
     }
 
     mat-icon {
       margin-right: 8px;
+
+      @media (max-width: 768px) {
+        margin-right: 0;
+      }
     }
   }
 }

@@ -4,7 +4,13 @@ const bank = require('../constants/bank.constants');
 const Mobobank = require('monobank-node');
 
 async function retrieveTransactions(userId) {
-    const {token, lastLoadingTime, cardNum} = await MonoInfo.findOne({user: userId});
+    const monoRecord = await MonoInfo.findOne({user: userId});
+
+    if (!monoRecord) {
+        return;
+    }
+
+    const {token, lastLoadingTime, cardNum} = monoRecord;
 
     if (getNow(true) - lastLoadingTime < 60) {
         return false;
@@ -27,6 +33,7 @@ async function saveTransactions(transactions, user, cardNum) {
     }
 
     for (const transaction of transactions) {
+        console.log(transaction);
         const newTransaction = new Transaction({
             ...transaction,
             time: transaction.time * 1000,
@@ -65,7 +72,14 @@ function getTime(time) {
 }
 
 async function getBalance(user) {
-    const {token} = await MonoInfo.findOne({user});
+    const monoRecord = await MonoInfo.findOne({user});
+
+    if (!monoRecord) {
+        return;
+    }
+
+    const {token} = monoRecord;
+
     const monobankApi = new Mobobank(token);
     const {accounts} = await monobankApi.getPersonalInfo();
     const accountsWithMoney = accounts.filter(account => account.balance);

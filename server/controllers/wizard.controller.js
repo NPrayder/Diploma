@@ -29,6 +29,9 @@ wizardRouter.post('/add-mono-token', async (request, response) => {
 
         const {accounts} = monoResponse;
         for (const account of accounts) {
+            if (account.balance <= 0) {
+                continue;
+            }
             const newMonoToken = new MonoInfo({
                 token: body.token,
                 user: userId,

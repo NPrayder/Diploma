@@ -1,45 +1,28 @@
 <ng-container *ngIf="transactions?.length && !liteVersion">
-  <table mat-table [dataSource]="transactions" matSort class="mat-elevation-z8">
-
-    <!-- Position Column -->
-    <ng-container matColumnDef="bank">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Bank</th>
-      <td mat-cell *matCellDef="let element">
-        <img src="assets/{{isMono(element.type) ? 'favicon-mono.ico' : 'favicon-pb.png'}}" alt="bank icon">
-      </td>
-    </ng-container>
-
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Name</th>
-      <td mat-cell *matCellDef="let element"> {{element.description}} </td>
-    </ng-container>
-
-    <!-- Weight Column -->
-    <ng-container matColumnDef="category">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Category</th>
-      <td mat-cell *matCellDef="let element"> {{element.mcc}} </td>
-    </ng-container>
-
-    <!-- Symbol Column -->
-    <ng-container matColumnDef="amount">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Date</th>
-      <td mat-cell *matCellDef="let element"> {{element.time | date:'short'}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="balance">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Amount</th>
-      <td mat-cell *matCellDef="let element"> {{element.amount}} </td>
-    </ng-container>
-
-    <ng-container matColumnDef="total">
-      <th mat-header-cell *matHeaderCellDef mat-sort-header>Balance</th>
-      <td mat-cell *matCellDef="let element"> {{element.balance}} </td>
-    </ng-container>
-
-    <tr mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></tr>
-    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
-  </table>
+  <ng-container class="date" *ngFor="let k of getKeys()">
+    <div class="date">{{k}}</div>
+    <div class="container">
+      <div class="row mat-elevation-z5" *ngFor="let transaction of groupTransactions()[k]">
+        <div class="icon">
+          <img src="assets/{{isMono(transaction.type) ? 'favicon-mono.ico' : 'favicon-pb.png'}}" alt="bank icon">
+        </div>
+        <div class="operation">
+          <div class="operation-description">
+            {{transaction.description}}
+          </div>
+          <div class="operation-category">
+            {{transaction.mcc}}
+          </div>
+        </div>
+        <div class="numbers">
+          <div class="amount" [ngClass]="{'expenses': transaction.amount < 0, 'incomes': transaction.amount > 0}">
+            {{transaction.amount > 0 ? '+' : ''}}{{transaction.amount}}
+          </div>
+          <div class="balance">{{transaction.balance}}</div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </ng-container>
 
 <ng-container *ngIf="transactions?.length && liteVersion">

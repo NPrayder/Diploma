@@ -4,7 +4,7 @@ import { ChartDataSets, ChartOptions, ChartType } from 'chart.js';
 import { FormControl } from '@angular/forms';
 import { Transaction } from '../../core/models/transaction.interface';
 import { TransactionService } from '../../core/services/transaction.service';
-import { FlowStats } from '../../../../shared/core/models/flow-stats.interface';
+import { BankTypes } from '../../core/models/bank-types.enum';
 
 @Component({
   selector: 'app-bar-chart',
@@ -35,16 +35,28 @@ export class BarChartComponent implements OnInit {
   ];
 
   bankType = new FormControl('all');
-  flowType = new FormControl('expenses');
 
-  constructor(private transactionService: TransactionService) {
+  constructor() {
   }
 
   ngOnInit() {
     this.buildChart();
   }
+
   getBankName(): string {
     return this.bankType.value === 'mono' ? 'MonoBank' : this.bankType.value === 'privat' ? 'PrivatBank' : 'All';
+  }
+
+  filteredTransactions(): Transaction[] {
+    let newTransactions = this.transactions;
+
+    if (this.bankType.value !== 'all') {
+      newTransactions = newTransactions.filter(t => this.bankType.value === 'mono'
+        ? t.type === BankTypes.MONOBANK
+        : t.type === BankTypes.PRIVATBANK);
+    }
+
+    return newTransactions;
   }
 
   buildChart(): void {
@@ -52,10 +64,18 @@ export class BarChartComponent implements OnInit {
     this.barChartData[0].data = [];
     this.barChartData[1].data = [];
 
-    this.transactionService.getFlow(this.bankType.value === 'all' ? null : this.bankType.value)
-      .subscribe((flow: FlowStats) => {
-        this.barChartData[0].data = [Math.abs(flow.expenses), 0];
-        this.barChartData[1].data = [flow.incomes, 0];
-      });
+    let incomes = 0;
+    let expenses = 0;
+
+    this.filteredTransactions().forEach(t => {
+      if (t.amount > 0) {
+        incomes += t.amount;
+      } else {
+        expenses += Math.abs(t.amount);
+      }
+    });
+
+    this.barChartData[0].data = [expenses, 0];
+    this.barChartData[1].data = [incomes, 0];
   }
 }
